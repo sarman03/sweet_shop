@@ -39,12 +39,8 @@ const Dashboard: React.FC = () => {
   };
 
   useEffect(() => {
-    if (!user) {
-      navigate('/login');
-      return;
-    }
     loadSweets();
-  }, [user, navigate]);
+  }, []);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -102,29 +98,37 @@ const Dashboard: React.FC = () => {
       <header className="dashboard-header">
         <h1>Incubyte Sweet Shop</h1>
         <div className="header-actions">
-          <div className="icon-button cart-icon" onClick={() => navigate('/cart')}>
-            <FaShoppingCart />
-            {getTotalItems() > 0 && <span className="badge">{getTotalItems()}</span>}
-          </div>
-          {user?.role === 'admin' && (
-            <div
-              className="icon-button admin-icon"
-              onClick={() => setShowAdminPanel(!showAdminPanel)}
-            >
-              <MdAdminPanelSettings />
-            </div>
-          )}
-          <div className="user-info" onClick={() => setShowUserDropdown(!showUserDropdown)}>
-            <div className="user-avatar">{user?.name?.charAt(0).toUpperCase()}</div>
-            <span>Welcome, {user?.name} {user?.role === 'admin' && '(Admin)'}</span>
-            {showUserDropdown && (
-              <div className="user-dropdown">
-                <button onClick={handleLogout}>
-                  <IoLogOut /> Logout
-                </button>
+          {user ? (
+            <>
+              <div className="icon-button cart-icon" onClick={() => navigate('/cart')}>
+                <FaShoppingCart />
+                {getTotalItems() > 0 && <span className="badge">{getTotalItems()}</span>}
               </div>
-            )}
-          </div>
+              {user.role === 'admin' && (
+                <div
+                  className="icon-button admin-icon"
+                  onClick={() => setShowAdminPanel(!showAdminPanel)}
+                >
+                  <MdAdminPanelSettings />
+                </div>
+              )}
+              <div className="user-info" onClick={() => setShowUserDropdown(!showUserDropdown)}>
+                <div className="user-avatar">{user.name?.charAt(0).toUpperCase()}</div>
+                <span>Welcome, {user.name} {user.role === 'admin' && '(Admin)'}</span>
+                {showUserDropdown && (
+                  <div className="user-dropdown">
+                    <button onClick={handleLogout}>
+                      <IoLogOut /> Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            </>
+          ) : (
+            <button className="btn-login" onClick={() => navigate('/login')}>
+              Login
+            </button>
+          )}
         </div>
       </header>
 

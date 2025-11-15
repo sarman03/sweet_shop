@@ -166,6 +166,24 @@
   border: 2px solid #8B4513;
 }
 
+.btn-login {
+  padding: 10px 24px;
+  background: white;
+  color: #8B4513;
+  border: none;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.95rem;
+}
+
+.btn-login:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
 .error-message {
   background: #fee;
   color: #c33;

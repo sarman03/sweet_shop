@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import type { Sweet } from '../types/index';
 import { useCart } from '../contexts/CartContext';
+import { useAuth } from '../contexts/AuthContext';
 import './SweetCard.css';
 
 interface SweetCardProps {
@@ -11,8 +13,17 @@ const SweetCard: React.FC<SweetCardProps> = ({ sweet }) => {
   const [quantity, setQuantity] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
   const { addToCart } = useCart();
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   const handleAddToCart = async () => {
+    // Check if user is logged in
+    if (!user) {
+      alert('Please login to add items to cart');
+      navigate('/login');
+      return;
+    }
+
     if (quantity > sweet.quantity) {
       alert('Not enough quantity in stock');
       return;

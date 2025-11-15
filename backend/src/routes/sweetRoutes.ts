@@ -14,11 +14,14 @@ import { upload } from '../middleware/upload';
 
 const router = express.Router();
 
-// All sweet routes require authentication
-router.use(authenticate);
+// Public routes - no authentication required
+router.get('/', getAllSweets);
+router.get('/search', searchSweets);
 
+// Protected routes - require authentication
 router.post(
   '/',
+  authenticate,
   upload.single('image'),
   [
     body('name').notEmpty().withMessage('Sweet name is required'),
@@ -29,16 +32,13 @@ router.post(
   createSweet
 );
 
-router.get('/', getAllSweets);
+router.put('/:id', authenticate, upload.single('image'), updateSweet);
 
-router.get('/search', searchSweets);
+router.post('/:id/purchase', authenticate, purchaseSweet);
 
-router.put('/:id', upload.single('image'), updateSweet);
+// Admin-only routes (authorizeAdmin includes authentication check)
+router.delete('/:id', authenticate, authorizeAdmin, deleteSweet);
 
-router.delete('/:id', authorizeAdmin, deleteSweet);
-
-router.post('/:id/purchase', purchaseSweet);
-
-router.post('/:id/restock', authorizeAdmin, restockSweet);
+router.post('/:id/restock', authenticate, authorizeAdmin, restockSweet);
 
 export default router;
