@@ -120,52 +120,50 @@
   transform: translateY(-1px);
 }
 
-.btn-admin {
-  padding: 10px 20px;
-  background: #FF8C42;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
+.icon-button {
+  position: relative;
   cursor: pointer;
   transition: all 0.2s;
+  padding: 8px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.95rem;
+  justify-content: center;
 }
 
-.btn-admin svg {
-  font-size: 1.1rem;
+.icon-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.1);
 }
 
-.btn-admin:hover {
-  background: #FF7A2E;
-  transform: translateY(-1px);
-}
-
-.btn-cart {
-  padding: 10px 20px;
-  background: #4CAF50;
+.icon-button svg {
+  font-size: 1.5rem;
   color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
+}
+
+.cart-icon {
+  color: white;
+}
+
+.admin-icon {
+  color: white;
+}
+
+.badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #ff4444;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.95rem;
-}
-
-.btn-cart svg {
-  font-size: 1.1rem;
-}
-
-.btn-cart:hover {
-  background: #45a049;
-  transform: translateY(-1px);
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border: 2px solid #8B4513;
 }
 
 .error-message {

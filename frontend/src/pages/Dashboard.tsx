@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
 import { MdAdminPanelSettings } from 'react-icons/md';
@@ -91,21 +91,28 @@ const Dashboard: React.FC = () => {
     navigate('/login');
   };
 
+  // Extract unique categories from sweets
+  const categories = useMemo(() => {
+    const uniqueCategories = Array.from(new Set(sweets.map(sweet => sweet.category)));
+    return uniqueCategories.sort();
+  }, [sweets]);
+
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
         <h1>Sweet Shop</h1>
         <div className="header-actions">
-          <button className="btn-cart" onClick={() => navigate('/cart')}>
-            <FaShoppingCart /> {getTotalItems()}
-          </button>
+          <div className="icon-button cart-icon" onClick={() => navigate('/cart')}>
+            <FaShoppingCart />
+            {getTotalItems() > 0 && <span className="badge">{getTotalItems()}</span>}
+          </div>
           {user?.role === 'admin' && (
-            <button
-              className="btn-admin"
+            <div
+              className="icon-button admin-icon"
               onClick={() => setShowAdminPanel(!showAdminPanel)}
             >
-              <MdAdminPanelSettings /> {showAdminPanel ? 'View Shop' : 'Admin Panel'}
-            </button>
+              <MdAdminPanelSettings />
+            </div>
           )}
           <div className="user-info" onClick={() => setShowUserDropdown(!showUserDropdown)}>
             <div className="user-avatar">{user?.name?.charAt(0).toUpperCase()}</div>
@@ -127,7 +134,7 @@ const Dashboard: React.FC = () => {
         <AdminPanel onClose={() => setShowAdminPanel(false)} onUpdate={loadSweets} />
       ) : (
         <>
-          <SearchBar onSearch={handleSearch} />
+          <SearchBar onSearch={handleSearch} categories={categories} />
 
           {isLoading ? (
             <div className="loading">Loading sweets...</div>

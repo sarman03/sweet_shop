@@ -35,46 +35,44 @@ const SweetCard: React.FC<SweetCardProps> = ({ sweet }) => {
       {sweet.imageUrl && (
         <div className="sweet-image">
           <img src={sweet.imageUrl} alt={sweet.name} />
+          {sweet.quantity > 0 && (
+            <span className="stock-badge">In Stock</span>
+          )}
         </div>
       )}
 
-      <div className="sweet-header">
-        <h3>{sweet.name}</h3>
-        <span className="sweet-category">{sweet.category}</span>
-      </div>
+      <div className="sweet-content">
+        <div className="sweet-header">
+          <h3>{sweet.name}</h3>
+          <span className="sweet-category">{sweet.category}</span>
+        </div>
 
-      <div className="sweet-details">
         {sweet.description && <p className="sweet-description">{sweet.description}</p>}
 
-        <div className="sweet-info">
-          <div className="price-tag">${sweet.price.toFixed(2)}</div>
-          <div className={`stock-info ${sweet.quantity === 0 ? 'out-of-stock' : ''}`}>
-            {sweet.quantity > 0 ? `${sweet.quantity} in stock` : 'Out of stock'}
+        <div className="price-tag">${sweet.price.toFixed(2)}</div>
+
+        <div className="sweet-actions">
+          <div className="quantity-selector">
+            <label htmlFor={`quantity-${sweet._id}`}>Quantity:</label>
+            <input
+              id={`quantity-${sweet._id}`}
+              type="number"
+              min="1"
+              max={sweet.quantity}
+              value={quantity}
+              onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+              disabled={sweet.quantity === 0}
+            />
           </div>
-        </div>
-      </div>
 
-      <div className="sweet-actions">
-        <div className="quantity-selector">
-          <label htmlFor={`quantity-${sweet._id}`}>Quantity:</label>
-          <input
-            id={`quantity-${sweet._id}`}
-            type="number"
-            min="1"
-            max={sweet.quantity}
-            value={quantity}
-            onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-            disabled={sweet.quantity === 0}
-          />
+          <button
+            className="btn-add-to-cart"
+            onClick={handleAddToCart}
+            disabled={sweet.quantity === 0 || isAdding}
+          >
+            {isAdding ? 'ADDING...' : 'ADD TO CART'}
+          </button>
         </div>
-
-        <button
-          className="btn-purchase"
-          onClick={handleAddToCart}
-          disabled={sweet.quantity === 0 || isAdding}
-        >
-          {isAdding ? 'Adding...' : 'Add to Cart'}
-        </button>
       </div>
     </div>
   );

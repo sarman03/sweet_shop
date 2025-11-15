@@ -3,9 +3,10 @@ import './SearchBar.css';
 
 interface SearchBarProps {
   onSearch: (params: { name?: string; category?: string; minPrice?: number; maxPrice?: number }) => void;
+  categories: string[];
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ onSearch, categories }) => {
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
   const [minPrice, setMinPrice] = useState('');
@@ -28,7 +29,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
 
   return (
     <div className="search-bar">
-      <h2>Search Sweets</h2>
+      {/* <h2>Search Sweets</h2> */}
       <div className="search-fields">
         <div className="search-field">
           <label htmlFor="name">Name</label>
@@ -43,13 +44,18 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
 
         <div className="search-field">
           <label htmlFor="category">Category</label>
-          <input
+          <select
             id="category"
-            type="text"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            placeholder="Search by category"
-          />
+          >
+            <option value="">All Categories</option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="search-field">
