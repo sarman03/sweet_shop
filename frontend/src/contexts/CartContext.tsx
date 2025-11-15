@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react';
+import React, { createContext, useState, useContext, useEffect, type ReactNode } from 'react';
 import type { Sweet, CartItem } from '../types/index';
 import { cartAPI } from '../services/api';
 import { useAuth } from './AuthContext';
