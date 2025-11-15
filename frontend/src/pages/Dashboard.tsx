@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaShoppingCart } from 'react-icons/fa';
+import { MdAdminPanelSettings } from 'react-icons/md';
+import { IoLogOut } from 'react-icons/io5';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
 import { sweetsAPI } from '../services/api';
@@ -15,6 +18,7 @@ const Dashboard: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const [showAdminPanel, setShowAdminPanel] = useState(false);
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
 
   const { user, logout } = useAuth();
   const { getTotalItems } = useCart();
@@ -42,24 +46,47 @@ const Dashboard: React.FC = () => {
     loadSweets();
   }, [user, navigate]);
 
-  const handleSearch = async (searchParams: { name?: string; category?: string; minPrice?: number; maxPrice?: number }) => {
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest('.user-info')) {
+        setShowUserDropdown(false);
+      }
+    };
+
+    if (showUserDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showUserDropdown]);
+
+  const handleSearch = useCallback(async (searchParams: { name?: string; category?: string; minPrice?: number; maxPrice?: number }) => {
     try {
       setIsLoading(true);
       if (Object.values(searchParams).every(v => !v && v !== 0)) {
-        await loadSweets();
+        const data = await sweetsAPI.getAll();
+        setSweets(data);
+        setFilteredSweets(data);
       } else {
         const data = await sweetsAPI.search(searchParams);
         setFilteredSweets(data);
       }
+      setError('');
     } catch (err: any) {
       setError(err.response?.data?.error || 'Search failed');
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
 
-  const handleLogout = () => {
+  const handleLogout = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setShowUserDropdown(false);
     logout();
     navigate('/login');
   };
@@ -69,24 +96,28 @@ const Dashboard: React.FC = () => {
       <header className="dashboard-header">
         <h1>Sweet Shop</h1>
         <div className="header-actions">
-          <div className="user-info">
-            <div className="user-avatar">{user?.name?.charAt(0).toUpperCase()}</div>
-            <span>Welcome, {user?.name} {user?.role === 'admin' && '(Admin)'}</span>
-          </div>
           <button className="btn-cart" onClick={() => navigate('/cart')}>
-            🛒 {getTotalItems()}
+            <FaShoppingCart /> {getTotalItems()}
           </button>
           {user?.role === 'admin' && (
             <button
               className="btn-admin"
               onClick={() => setShowAdminPanel(!showAdminPanel)}
             >
-              {showAdminPanel ? 'View Shop' : 'Admin Panel'}
+              <MdAdminPanelSettings /> {showAdminPanel ? 'View Shop' : 'Admin Panel'}
             </button>
           )}
-          <button className="btn-secondary" onClick={handleLogout}>
-            Logout
-          </button>
+          <div className="user-info" onClick={() => setShowUserDropdown(!showUserDropdown)}>
+            <div className="user-avatar">{user?.name?.charAt(0).toUpperCase()}</div>
+            <span>Welcome, {user?.name} {user?.role === 'admin' && '(Admin)'}</span>
+            {showUserDropdown && (
+              <div className="user-dropdown">
+                <button onClick={handleLogout}>
+                  <IoLogOut /> Logout
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </header>
 
