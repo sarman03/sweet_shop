@@ -4,6 +4,22 @@ A modern, full-stack e-commerce application for managing a sweet shop with real-
 
 Built with **MERN Stack** (MongoDB, Express, React, Node.js) and **TypeScript** following test-driven development principles.
 
+---
+
+## 🌐 Live Demo
+
+**🚀 [View Live Application](https://incubyte-sweet-shop.netlify.app)**
+
+Experience the full-featured sweet shop application deployed on Netlify!
+
+**Admin Access Credentials:**
+- **Email:** `admin@gmail.com`
+- **Password:** `admin123`
+
+> **⚠️ Note:** The backend is deployed on Render's free tier, which may experience slow response times and cold starts (initial load can take 1-2 minutes). **For optimal performance, local testing is highly recommended.** Follow the installation instructions below to run the application locally.
+
+---
+
 ## 🚀 Features
 
 ### Customer Features
