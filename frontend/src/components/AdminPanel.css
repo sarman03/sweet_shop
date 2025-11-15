@@ -1,0 +1,138 @@
+.admin-panel {
+  padding: 40px;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.admin-header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 2rem;
+}
+
+.sweet-form {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 30px 0;
+}
+
+.sweet-form h3 {
+  margin: 0 0 24px 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.form-actions button {
+  flex: 1;
+  padding: 12px;
+}
+
+.admin-sweets-table {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-top: 30px;
+}
+
+.admin-sweets-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-sweets-table thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.admin-sweets-table th {
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.admin-sweets-table td {
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.admin-sweets-table tr:hover {
+  background: #f9f9f9;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.action-buttons button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn-edit {
+  background: #2196f3;
+  color: white;
+}
+
+.btn-edit:hover {
+  background: #1976d2;
+  transform: translateY(-2px);
+}
+
+.btn-restock {
+  background: #4caf50;
+  color: white;
+}
+
+.btn-restock:hover {
+  background: #388e3c;
+  transform: translateY(-2px);
+}
+
+.btn-delete {
+  background: #f44336;
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #d32f2f;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .admin-panel {
+    padding: 20px;
+  }
+
+  .admin-sweets-table {
+    overflow-x: auto;
+  }
+
+  .admin-sweets-table table {
+    min-width: 600px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+}
