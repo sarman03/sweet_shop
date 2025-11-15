@@ -130,11 +130,29 @@ Frontend will run on `http://localhost:5173`
 
 Open your browser and navigate to `http://localhost:5173`
 
-## 👤 Creating Admin User
+## 👤 Admin Access
 
-To access admin features, you need to manually set a user's role to `admin` in MongoDB:
+### Pre-configured Admin Account
 
-### Using MongoDB Shell:
+For immediate admin access, use these credentials:
+
+```
+Email: admin@gmail.com
+Password: admin123
+```
+
+This admin account is already set up in the database and provides full access to:
+- Admin dashboard panel
+- Create, update, and delete products
+- Manage product images
+- Restock inventory
+- All administrative features
+
+### Creating Additional Admin Users
+
+To manually set another user's role to `admin` in MongoDB:
+
+#### Using MongoDB Shell:
 ```javascript
 db.users.updateOne(
   { email: "your@email.com" },
@@ -142,7 +160,7 @@ db.users.updateOne(
 )
 ```
 
-### Using MongoDB Compass:
+#### Using MongoDB Compass:
 1. Connect to your database
 2. Navigate to `sweet-shop` → `users` collection
 3. Find your user and edit the document
@@ -180,11 +198,12 @@ npm test
 ### Sweets
 | Method | Endpoint | Description | Auth Required | Admin Only |
 |--------|----------|-------------|---------------|------------|
-| GET | `/api/sweets` | Get all sweets | Yes | No |
-| GET | `/api/sweets/search` | Search sweets | Yes | No |
+| GET | `/api/sweets` | Get all sweets | No | No |
+| GET | `/api/sweets/search` | Search sweets | No | No |
 | POST | `/api/sweets` | Create sweet | Yes | Yes |
 | PUT | `/api/sweets/:id` | Update sweet | Yes | Yes |
 | DELETE | `/api/sweets/:id` | Delete sweet | Yes | Yes |
+| POST | `/api/sweets/:id/purchase` | Purchase sweet | Yes | No |
 | POST | `/api/sweets/:id/restock` | Restock sweet | Yes | Yes |
 
 ### Cart
