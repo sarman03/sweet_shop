@@ -10,6 +10,7 @@ import {
   restockSweet,
 } from '../controllers/sweetController';
 import { authenticate, authorizeAdmin } from '../middleware/auth';
+import { upload } from '../middleware/upload';
 
 const router = express.Router();
 
@@ -18,6 +19,7 @@ router.use(authenticate);
 
 router.post(
   '/',
+  upload.single('image'),
   [
     body('name').notEmpty().withMessage('Sweet name is required'),
     body('category').notEmpty().withMessage('Category is required'),
@@ -31,7 +33,7 @@ router.get('/', getAllSweets);
 
 router.get('/search', searchSweets);
 
-router.put('/:id', updateSweet);
+router.put('/:id', upload.single('image'), updateSweet);
 
 router.delete('/:id', authorizeAdmin, deleteSweet);
 

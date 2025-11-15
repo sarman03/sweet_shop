@@ -14,6 +14,25 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
+.sweet-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #f5f5f5;
+}
+
+.sweet-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.sweet-card:hover .sweet-image img {
+  transform: scale(1.05);
+}
+
 .sweet-header {
   display: flex;
   justify-content: space-between;

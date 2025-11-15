@@ -14,6 +14,8 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onClose, onUpdate }) => {
   const [showForm, setShowForm] = useState(false);
   const [editingSweet, setEditingSweet] = useState<Sweet | null>(null);
   const [error, setError] = useState('');
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string>('');
 
   const [formData, setFormData] = useState<SweetFormData>({
     name: '',
@@ -43,6 +45,8 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onClose, onUpdate }) => {
     setFormData({ name: '', category: '', price: 0, quantity: 0, description: '' });
     setEditingSweet(null);
     setShowForm(false);
+    setImageFile(null);
+    setImagePreview('');
   };
 
   const handleEdit = (sweet: Sweet) => {
@@ -54,7 +58,20 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onClose, onUpdate }) => {
       quantity: sweet.quantity,
       description: sweet.description || '',
     });
+    setImagePreview(sweet.imageUrl || '');
     setShowForm(true);
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -63,9 +80,9 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onClose, onUpdate }) => {
 
     try {
       if (editingSweet) {
-        await sweetsAPI.update(editingSweet._id, formData);
+        await sweetsAPI.update(editingSweet._id, formData, imageFile || undefined);
       } else {
-        await sweetsAPI.create(formData);
+        await sweetsAPI.create(formData, imageFile || undefined);
       }
       await loadSweets();
       onUpdate();
@@ -183,6 +200,21 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onClose, onUpdate }) => {
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               rows={3}
             />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="image">Image</label>
+            <input
+              id="image"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+            />
+            {imagePreview && (
+              <div className="image-preview">
+                <img src={imagePreview} alt="Preview" />
+              </div>
+            )}
           </div>
 
           <div className="form-actions">

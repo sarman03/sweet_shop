@@ -40,6 +40,21 @@
   padding: 12px;
 }
 
+.image-preview {
+  margin-top: 15px;
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 300px;
+}
+
+.image-preview img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+}
+
 .admin-sweets-table {
   background: white;
   border-radius: 12px;

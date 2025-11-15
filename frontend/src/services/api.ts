@@ -44,13 +44,37 @@ export const sweetsAPI = {
     return response.data;
   },
 
-  create: async (data: SweetFormData): Promise<Sweet> => {
-    const response = await api.post('/sweets', data);
+  create: async (data: SweetFormData, imageFile?: File): Promise<Sweet> => {
+    const formData = new FormData();
+    formData.append('name', data.name);
+    formData.append('category', data.category);
+    formData.append('price', data.price.toString());
+    formData.append('quantity', data.quantity.toString());
+    if (data.description) formData.append('description', data.description);
+    if (imageFile) formData.append('image', imageFile);
+
+    const response = await api.post('/sweets', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     return response.data;
   },
 
-  update: async (id: string, data: Partial<SweetFormData>): Promise<Sweet> => {
-    const response = await api.put(`/sweets/${id}`, data);
+  update: async (id: string, data: Partial<SweetFormData>, imageFile?: File): Promise<Sweet> => {
+    const formData = new FormData();
+    if (data.name) formData.append('name', data.name);
+    if (data.category) formData.append('category', data.category);
+    if (data.price !== undefined) formData.append('price', data.price.toString());
+    if (data.quantity !== undefined) formData.append('quantity', data.quantity.toString());
+    if (data.description) formData.append('description', data.description);
+    if (imageFile) formData.append('image', imageFile);
+
+    const response = await api.put(`/sweets/${id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     return response.data;
   },
 

@@ -2,6 +2,27 @@ import { Response } from 'express';
 import { validationResult } from 'express-validator';
 import Sweet from '../models/Sweet';
 import { AuthRequest } from '../middleware/auth';
+import cloudinary from '../config/cloudinary';
+
+// Helper function to upload image to Cloudinary
+const uploadToCloudinary = (file: Express.Multer.File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const uploadStream = cloudinary.uploader.upload_stream(
+      {
+        folder: 'sweet-shop',
+        resource_type: 'image',
+      },
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result!.secure_url);
+        }
+      }
+    );
+    uploadStream.end(file.buffer);
+  });
+};
 
 export const createSweet = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
@@ -13,12 +34,25 @@ export const createSweet = async (req: AuthRequest, res: Response): Promise<void
 
     const { name, category, price, quantity, description } = req.body;
 
+    let imageUrl: string | undefined;
+
+    // Upload image to Cloudinary if provided
+    if (req.file) {
+      try {
+        imageUrl = await uploadToCloudinary(req.file);
+      } catch (uploadError) {
+        res.status(500).json({ error: 'Failed to upload image' });
+        return;
+      }
+    }
+
     const sweet = await Sweet.create({
       name,
       category,
       price,
       quantity,
       description,
+      imageUrl,
     });
 
     res.status(201).json(sweet);
@@ -71,7 +105,17 @@ export const searchSweets = async (req: AuthRequest, res: Response): Promise<voi
 export const updateSweet = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
-    const updateData = req.body;
+    const updateData = { ...req.body };
+
+    // Upload new image to Cloudinary if provided
+    if (req.file) {
+      try {
+        updateData.imageUrl = await uploadToCloudinary(req.file);
+      } catch (uploadError) {
+        res.status(500).json({ error: 'Failed to upload image' });
+        return;
+      }
+    }
 
     const sweet = await Sweet.findByIdAndUpdate(id, updateData, {
       new: true,

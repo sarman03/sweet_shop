@@ -32,6 +32,12 @@ const SweetCard: React.FC<SweetCardProps> = ({ sweet }) => {
 
   return (
     <div className="sweet-card">
+      {sweet.imageUrl && (
+        <div className="sweet-image">
+          <img src={sweet.imageUrl} alt={sweet.name} />
+        </div>
+      )}
+
       <div className="sweet-header">
         <h3>{sweet.name}</h3>
         <span className="sweet-category">{sweet.category}</span>

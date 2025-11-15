@@ -79,6 +79,12 @@ const Cart: React.FC = () => {
           <div className="cart-items">
             {cartItems.map((item) => (
               <div key={item.sweet._id} className="cart-item">
+                {item.sweet.imageUrl && (
+                  <div className="cart-item-image">
+                    <img src={item.sweet.imageUrl} alt={item.sweet.name} />
+                  </div>
+                )}
+
                 <div className="cart-item-info">
                   <h3>{item.sweet.name}</h3>
                   <p className="cart-item-category">{item.sweet.category}</p>

@@ -12,6 +12,7 @@ export interface Sweet {
   price: number;
   quantity: number;
   description?: string;
+  imageUrl?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -38,6 +39,7 @@ export interface SweetFormData {
   price: number;
   quantity: number;
   description?: string;
+  imageUrl?: string;
 }
 
 export interface CartItem {
