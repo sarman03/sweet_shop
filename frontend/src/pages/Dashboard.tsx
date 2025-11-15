@@ -100,7 +100,7 @@ const Dashboard: React.FC = () => {
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
-        <h1>Sweet Shop</h1>
+        <h1>Incubyte Sweet Shop</h1>
         <div className="header-actions">
           <div className="icon-button cart-icon" onClick={() => navigate('/cart')}>
             <FaShoppingCart />

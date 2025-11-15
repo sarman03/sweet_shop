@@ -75,7 +75,7 @@ const Cart: React.FC = () => {
           </button>
         </div>
       ) : (
-        <>
+        <div className="cart-content">
           <div className="cart-items">
             {cartItems.map((item) => (
               <div key={item.sweet._id} className="cart-item">
@@ -178,7 +178,7 @@ const Cart: React.FC = () => {
               </button>
             </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

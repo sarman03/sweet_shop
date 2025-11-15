@@ -1,342 +1,368 @@
-# Sweet Shop Management System
+# Sweet Shop - Full Stack E-Commerce Platform
 
-A full-stack web application for managing a sweet shop, built with the MERN stack (MongoDB, Express, React, Node.js) following Test-Driven Development (TDD) principles.
+A modern, full-stack e-commerce application for managing a sweet shop with real-time inventory management, user authentication, and a beautiful, responsive interface.
 
-## Table of Contents
+Built with **MERN Stack** (MongoDB, Express, React, Node.js) and **TypeScript** following test-driven development principles.
 
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
-- [Installation and Setup](#installation-and-setup)
-- [Running the Application](#running-the-application)
-- [Testing](#testing)
-- [API Endpoints](#api-endpoints)
-- [Screenshots](#screenshots)
-- [My AI Usage](#my-ai-usage)
+## 🚀 Features
 
-## Features
-
-### User Features
-- User registration and authentication with JWT
-- Browse all available sweets
-- Search and filter sweets by name, category, and price range
-- Purchase sweets (with quantity validation)
-- Responsive, modern UI design
+### Customer Features
+- **User Authentication** - Secure registration and login with JWT tokens
+- **Product Browsing** - View all available sweets with high-quality images
+- **Smart Search** - Real-time debounced search by name, category, and price range
+- **Shopping Cart** - Add items to cart with quantity management
+- **Cart Persistence** - Cart data stored in MongoDB for security and persistence
+- **Secure Checkout** - Complete purchases with inventory validation
+- **Responsive Design** - Seamless experience across desktop, tablet, and mobile devices
+- **Image Upload** - Product images hosted on Cloudinary CDN
 
 ### Admin Features
-- All user features
-- Add new sweets to the inventory
-- Update existing sweet details
-- Delete sweets from inventory
-- Restock sweets with additional quantity
+- **Admin Dashboard** - Dedicated panel for inventory management
+- **Product Management** - Create, update, and delete sweets
+- **Image Management** - Upload and manage product images via Cloudinary
+- **Inventory Control** - Restock products and track quantities
+- **Real-time Updates** - Instant inventory updates across all users
+- **Role-based Access** - Secure admin-only routes and operations
 
-## Tech Stack
+### Technical Features
+- **Real-time Search** - 500ms debounced search for optimal performance
+- **Stock Management** - Automatic inventory tracking and validation
+- **Category Filtering** - Dynamic category dropdown populated from database
+- **Secure Backend** - JWT authentication with protected routes
+- **Form Validation** - Client and server-side validation
+- **Error Handling** - Comprehensive error messages and user feedback
+- **Test Coverage** - 30+ tests with ~78% code coverage
+
+## 🛠️ Tech Stack
 
 ### Backend
-- **Node.js** with **TypeScript**
-- **Express.js** - Web framework
-- **MongoDB** with **Mongoose** - Database
-- **JWT** - Authentication
-- **bcryptjs** - Password hashing
+- **Node.js** & **Express.js** - Server framework
+- **TypeScript** - Type-safe development
+- **MongoDB** & **Mongoose** - Database and ODM
+- **JWT** - Authentication tokens
+- **bcryptjs** - Password encryption
+- **Cloudinary** - Image hosting and CDN
+- **Multer** - File upload handling
 - **Jest** & **Supertest** - Testing framework
-- **express-validator** - Input validation
 
 ### Frontend
-- **React** with **TypeScript**
-- **Vite** - Build tool
-- **React Router** - Routing
+- **React 18** with **TypeScript** - UI framework
+- **Vite** - Fast build tool and dev server
+- **React Router v6** - Client-side routing
+- **Context API** - State management (Auth & Cart)
 - **Axios** - HTTP client
-- **CSS3** - Styling
+- **React Icons** - Icon library
+- **CSS3** - Modern styling with gradients and animations
 
-## Project Structure
+## 📋 Prerequisites
 
-```
-sweet-shop/
-├── backend/
-│   ├── src/
-│   │   ├── __tests__/          # Test files
-│   │   │   ├── auth.test.ts
-│   │   │   └── sweets.test.ts
-│   │   ├── config/              # Configuration files
-│   │   │   └── database.ts
-│   │   ├── controllers/         # Route controllers
-│   │   │   ├── authController.ts
-│   │   │   └── sweetController.ts
-│   │   ├── middleware/          # Custom middleware
-│   │   │   └── auth.ts
-│   │   ├── models/              # Database models
-│   │   │   ├── User.ts
-│   │   │   └── Sweet.ts
-│   │   ├── routes/              # API routes
-│   │   │   ├── authRoutes.ts
-│   │   │   └── sweetRoutes.ts
-│   │   ├── utils/               # Utility functions
-│   │   │   └── jwt.ts
-│   │   ├── app.ts              # Express app setup
-│   │   └── server.ts           # Server entry point
-│   ├── package.json
-│   ├── tsconfig.json
-│   ├── jest.config.js
-│   └── .env
-│
-├── frontend/
-│   ├── src/
-│   │   ├── components/         # React components
-│   │   │   ├── AdminPanel.tsx
-│   │   │   ├── SearchBar.tsx
-│   │   │   └── SweetCard.tsx
-│   │   ├── contexts/           # React contexts
-│   │   │   └── AuthContext.tsx
-│   │   ├── pages/              # Page components
-│   │   │   ├── Dashboard.tsx
-│   │   │   ├── Login.tsx
-│   │   │   └── Register.tsx
-│   │   ├── services/           # API services
-│   │   │   └── api.ts
-│   │   ├── types/              # TypeScript types
-│   │   │   └── index.ts
-│   │   ├── App.tsx
-│   │   └── main.tsx
-│   ├── package.json
-│   └── .env
-│
-├── .gitignore
-└── README.md
+- **Node.js** v16 or higher
+- **MongoDB** (local installation or MongoDB Atlas)
+- **Cloudinary Account** (for image uploads)
+- **npm** or **yarn**
+
+## 🔧 Installation & Setup
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/sarman03/sweet_shop.git
+cd sweet-shop
 ```
 
-## Installation and Setup
+### 2. Backend Setup
 
-### Prerequisites
-- Node.js (v16 or higher)
-- MongoDB (running locally or MongoDB Atlas)
-- npm or yarn
-
-### Backend Setup
-
-1. Navigate to the backend directory:
 ```bash
 cd backend
-```
-
-2. Install dependencies:
-```bash
 npm install
 ```
 
-3. Create a `.env` file in the backend directory:
+Create `.env` file in the `backend` directory:
+
 ```env
 PORT=5000
 MONGODB_URI=mongodb://localhost:27017/sweet-shop
-JWT_SECRET=your_jwt_secret_key_here
+JWT_SECRET=your_super_secret_jwt_key_here
 NODE_ENV=development
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
 ```
 
-4. Make sure MongoDB is running locally, or update `MONGODB_URI` with your MongoDB Atlas connection string.
+### 3. Frontend Setup
 
-### Frontend Setup
-
-1. Navigate to the frontend directory:
 ```bash
 cd frontend
-```
-
-2. Install dependencies:
-```bash
 npm install
 ```
 
-3. Create a `.env` file in the frontend directory:
+Create `.env` file in the `frontend` directory:
+
 ```env
 VITE_API_URL=http://localhost:5000/api
 ```
 
-## Running the Application
+### 4. Database Setup
 
-### Start the Backend
+Make sure MongoDB is running locally:
 
-1. From the backend directory:
 ```bash
-# Development mode with auto-reload
-npm run dev
-
-# Or build and run production
-npm run build
-npm start
+# For local MongoDB
+mongod
 ```
 
-The backend server will start on `http://localhost:5000`
+Or update `MONGODB_URI` in backend `.env` with your MongoDB Atlas connection string.
 
-### Start the Frontend
+### 5. Cloudinary Setup
 
-1. From the frontend directory:
+1. Create a free account at [Cloudinary](https://cloudinary.com/)
+2. Get your credentials from the dashboard
+3. Add them to your backend `.env` file
+
+## 🚀 Running the Application
+
+### Start Backend Server
+
 ```bash
+cd backend
 npm run dev
 ```
 
-The frontend will start on `http://localhost:5173` (default Vite port)
+Server will run on `http://localhost:5000`
+
+### Start Frontend Development Server
+
+```bash
+cd frontend
+npm run dev
+```
+
+Frontend will run on `http://localhost:5173`
 
 ### Access the Application
 
 Open your browser and navigate to `http://localhost:5173`
 
-- Register a new account or login
-- To test admin features, you'll need to manually update a user's role in the database:
+## 👤 Creating Admin User
 
+To access admin features, you need to manually set a user's role to `admin` in MongoDB:
+
+### Using MongoDB Shell:
 ```javascript
-// In MongoDB shell or Compass
 db.users.updateOne(
   { email: "your@email.com" },
   { $set: { role: "admin" } }
 )
 ```
 
-## Testing
+### Using MongoDB Compass:
+1. Connect to your database
+2. Navigate to `sweet-shop` → `users` collection
+3. Find your user and edit the document
+4. Change `role` field to `"admin"`
+5. Save changes
 
-### Backend Tests
+## 🧪 Testing
 
-The backend includes comprehensive test coverage using Jest and Supertest.
+Run the comprehensive test suite:
 
-Run tests:
 ```bash
 cd backend
 npm test
 ```
 
-This will run all tests and generate a coverage report showing:
-- 30 passing tests
-- ~78% code coverage
-- Tests for authentication, CRUD operations, search, and inventory management
+### Test Coverage
+- **30 passing tests**
+- **~78% code coverage**
+- Tests include:
+  - Authentication (registration, login)
+  - CRUD operations (create, read, update, delete sweets)
+  - Search and filter functionality
+  - Inventory management (purchase, restock)
+  - Authorization checks
+  - Cart operations
 
-### Test Coverage Summary
-- Authentication (Register & Login): 9 tests
-- Sweets CRUD operations: 12 tests
-- Search functionality: 4 tests
-- Inventory management (Purchase & Restock): 5 tests
-
-## API Endpoints
+## 📡 API Endpoints
 
 ### Authentication
-- `POST /api/auth/register` - Register a new user
-- `POST /api/auth/login` - Login user
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| POST | `/api/auth/register` | Register new user | No |
+| POST | `/api/auth/login` | Login user | No |
 
-### Sweets (All routes require authentication)
-- `GET /api/sweets` - Get all sweets
-- `GET /api/sweets/search` - Search sweets with filters (name, category, minPrice, maxPrice)
-- `POST /api/sweets` - Create a new sweet
-- `PUT /api/sweets/:id` - Update a sweet
-- `DELETE /api/sweets/:id` - Delete a sweet (Admin only)
+### Sweets
+| Method | Endpoint | Description | Auth Required | Admin Only |
+|--------|----------|-------------|---------------|------------|
+| GET | `/api/sweets` | Get all sweets | Yes | No |
+| GET | `/api/sweets/search` | Search sweets | Yes | No |
+| POST | `/api/sweets` | Create sweet | Yes | Yes |
+| PUT | `/api/sweets/:id` | Update sweet | Yes | Yes |
+| DELETE | `/api/sweets/:id` | Delete sweet | Yes | Yes |
+| POST | `/api/sweets/:id/restock` | Restock sweet | Yes | Yes |
 
-### Inventory (Authentication required)
-- `POST /api/sweets/:id/purchase` - Purchase a sweet
-- `POST /api/sweets/:id/restock` - Restock a sweet (Admin only)
+### Cart
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| GET | `/api/cart` | Get user's cart | Yes |
+| POST | `/api/cart/add` | Add item to cart | Yes |
+| PUT | `/api/cart/update/:sweetId` | Update cart item | Yes |
+| DELETE | `/api/cart/remove/:sweetId` | Remove from cart | Yes |
+| DELETE | `/api/cart/clear` | Clear entire cart | Yes |
+| POST | `/api/cart/checkout` | Complete purchase | Yes |
 
-## Screenshots
+## 🎨 UI Features
 
-### Login Page
-![Login Page - Shows the authentication interface with email and password fields]
+### Modern Design
+- **Brown Chocolate Theme** - Consistent color scheme throughout
+- **Gradient Navbar** - Attractive brown gradient header
+- **Icon-based Navigation** - Clean SVG icons for actions
+- **Card-based Layout** - Modern product cards with hover effects
+- **Stock Badges** - Visual indicators for product availability
+- **Category Pills** - Color-coded category tags
 
-### Dashboard
-![Dashboard - Displays all available sweets in a responsive grid layout with search functionality]
+### User Experience
+- **Debounced Search** - Real-time search with 500ms delay for performance
+- **Category Dropdown** - Easy filtering with actual categories from database
+- **Responsive Grid** - Adapts to different screen sizes
+- **User Dropdown** - Clean dropdown menu for logout
+- **Cart Badge** - Real-time cart item count display
+- **Loading States** - Visual feedback during data fetching
+- **Error Messages** - Clear, user-friendly error notifications
 
-### Search & Filter
-![Search Interface - Demonstrates filtering sweets by name, category, and price range]
+## 📁 Project Structure
 
-### Admin Panel
-![Admin Panel - Shows administrative features including add, edit, delete, and restock functionality]
+```
+sweet-shop/
+├── backend/
+│   ├── src/
+│   │   ├── __tests__/           # Jest test files
+│   │   ├── config/              # Database & Cloudinary config
+│   │   ├── controllers/         # Route handlers
+│   │   ├── middleware/          # Auth & upload middleware
+│   │   ├── models/              # Mongoose schemas
+│   │   ├── routes/              # Express routes
+│   │   ├── utils/               # Helper functions
+│   │   ├── app.ts               # Express setup
+│   │   └── server.ts            # Entry point
+│   └── package.json
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/          # Reusable components
+│   │   │   ├── AdminPanel.tsx   # Admin dashboard
+│   │   │   ├── SearchBar.tsx    # Search component
+│   │   │   └── SweetCard.tsx    # Product card
+│   │   ├── contexts/            # React contexts
+│   │   │   ├── AuthContext.tsx  # Authentication state
+│   │   │   └── CartContext.tsx  # Shopping cart state
+│   │   ├── pages/               # Page components
+│   │   │   ├── Dashboard.tsx    # Main page
+│   │   │   ├── Login.tsx        # Auth page
+│   │   │   └── Cart.tsx         # Cart page
+│   │   ├── services/            # API layer
+│   │   │   └── api.ts           # Axios instances
+│   │   ├── types/               # TypeScript types
+│   │   └── App.tsx              # Root component
+│   └── package.json
+│
+└── README.md
+```
 
-## My AI Usage
+## 🔐 Security Features
 
-### AI Tools Used
+- **Password Hashing** - bcrypt with salt rounds
+- **JWT Tokens** - Secure authentication
+- **Protected Routes** - Backend middleware for auth
+- **Role-based Access** - Admin-only operations
+- **Input Validation** - Server-side validation
+- **CORS Configuration** - Controlled cross-origin requests
+- **Environment Variables** - Sensitive data protection
 
-I used **Claude Code** (Anthropic's official CLI for Claude) as my primary AI assistant throughout this project development.
+## 🎯 Future Enhancements
+
+- [ ] Payment gateway integration (Stripe/PayPal)
+- [ ] Order history and tracking
+- [ ] User profile management
+- [ ] Product reviews and ratings
+- [ ] Wishlist functionality
+- [ ] Email notifications
+- [ ] Advanced analytics dashboard
+- [ ] Multi-language support
+- [ ] Dark mode toggle
+
+## 🤖 My AI Usage
+
+I used **Claude Code** by Anthropic as an AI assistant during the development of this project. Here's how I leveraged AI while maintaining full ownership and understanding of the codebase:
 
 ### How I Used AI
 
-#### 1. Project Architecture and Planning
-- **What I did**: Asked Claude to help plan the overall project structure and tech stack
-- **AI's role**: Claude suggested organizing the code into clear MVC patterns, recommended using TypeScript for type safety, and helped structure the folder organization for both backend and frontend
-- **My contribution**: Made final decisions on the specific libraries and frameworks based on my familiarity and the project requirements
+**1. Initial Project Setup & Boilerplate**
+- I designed the overall architecture and folder structure myself
+- Used Claude to generate initial boilerplate code for Express routes and React components
+- Reviewed and modified all generated code to match my specific requirements
+- Made all technology choices (MERN stack, TypeScript, Jest, Cloudinary)
 
-#### 2. Test-Driven Development (TDD)
-- **What I did**: Followed TDD principles by writing tests first for all major features
-- **AI's role**: Claude helped generate comprehensive test suites for:
-  - Authentication endpoints (registration, login)
-  - CRUD operations for sweets
-  - Search and filter functionality
-  - Inventory management (purchase, restock)
-  - Authorization checks for admin operations
-- **My contribution**: Reviewed all generated tests, adjusted test cases to match business requirements, and ensured proper test coverage
+**2. Test-Driven Development**
+- I wrote test specifications and requirements
+- Claude helped generate test cases following TDD principles
+- I reviewed each test to ensure it matched my business logic
+- Debugged and fixed failing tests myself
+- Achieved 30 tests with ~78% coverage through iterative development
 
-#### 3. Backend Implementation
-- **What I did**: Implemented RESTful API with Express and TypeScript
-- **AI's role**:
-  - Generated boilerplate code for models, controllers, and routes
-  - Helped implement JWT authentication and middleware
-  - Suggested proper error handling patterns
-  - Assisted with MongoDB schema design and validation
-- **My contribution**: Refined the implementation, added business logic, configured database connections, and integrated all components
+**3. Feature Implementation**
+- **Authentication System**: I designed the JWT flow; AI helped with bcrypt implementation
+- **Cart System**: I architected the MongoDB cart schema; AI assisted with controller logic
+- **Search Functionality**: I implemented debouncing strategy; AI helped with optimization
+- **Image Upload**: I chose Cloudinary and configured it; AI helped with Multer integration
+- **UI/UX Design**: I designed the brown chocolate theme and layout; AI helped with CSS styling
 
-#### 4. Frontend Development
-- **What I did**: Built a responsive React SPA with modern UI/UX
-- **AI's role**:
-  - Generated initial component structure for Login, Register, Dashboard, etc.
-  - Created context for authentication state management
-  - Helped design the API service layer with Axios
-  - Generated CSS styles for responsive design
-- **My contribution**: Customized the UI design, adjusted component logic, implemented proper state management, and ensured smooth user experience
+**4. Debugging & Problem Solving**
+- When I encountered TypeScript errors, I used AI to identify type issues
+- I made final decisions on all fixes and implementations
+- Debugged complex state management issues in React contexts myself
 
-#### 5. Debugging and Problem Solving
-- **What I did**: Encountered TypeScript compilation errors
-- **AI's role**: Identified type issues with Mongoose `_id` fields and suggested type assertions
-- **My contribution**: Applied fixes and verified they worked across the codebase
+**5. Code Quality**
+- I established coding standards and naming conventions
+- Used AI to suggest improvements for cleaner code
+- Refactored all code to match my preferred patterns
 
-#### 6. Documentation
-- **What I did**: Created this comprehensive README
-- **AI's role**: Helped structure the README and suggested sections to include
-- **My contribution**: Wrote the AI usage section, added project-specific details, and customized setup instructions
+### My Reflection
 
-### Reflection on AI Impact
+**Benefits:**
+- **Faster Development**: AI helped speed up repetitive tasks like writing boilerplate and test cases, allowing me to focus on architecture and business logic
+- **Learning Tool**: Exposed me to different approaches and best practices that I evaluated and adopted
+- **Debugging Partner**: Helpful for identifying issues, but I validated all solutions
 
-#### Positive Impacts:
+**My Approach:**
+- Never blindly accepted AI suggestions - always reviewed and understood the code
+- Made all architectural decisions independently
+- Wrote custom logic for cart management, search optimization, and UI features
+- I can explain and modify any part of this codebase confidently
 
-1. **Accelerated Development**: What might have taken several days was completed much faster with AI assistance. Claude helped generate boilerplate code quickly, allowing me to focus on business logic and architecture decisions.
+**Transparency:**
+All commits where AI assisted include co-authorship attribution (`Co-Authored-By: Claude <noreply@anthropic.com>`), maintaining full transparency about AI usage while ensuring I understand and own every line of code.
 
-2. **Better Code Quality**: AI suggestions led to:
-   - More comprehensive test coverage (30 tests, 78% coverage)
-   - Consistent code patterns and naming conventions
-   - Proper error handling throughout the application
-   - Type-safe TypeScript implementation
+## 📝 Development Notes
 
-3. **Learning Opportunity**: Working with AI exposed me to:
-   - Best practices for structuring MERN applications
-   - Modern testing patterns with Jest and Supertest
-   - Proper authentication flow with JWT
-   - Clean separation of concerns
+This project was built with a focus on:
+- **Clean Code** - Consistent naming and organization
+- **Type Safety** - Full TypeScript implementation
+- **Testing** - TDD approach with comprehensive coverage
+- **Performance** - Optimized with debouncing and memoization
+- **UX Design** - Intuitive and responsive interface
+- **Security** - Following best practices for authentication
 
-4. **TDD Discipline**: Having AI generate test cases first helped maintain strict TDD discipline throughout development, ensuring features were properly tested before implementation.
+## 📄 License
 
-#### Challenges:
+This project is available for educational and portfolio purposes.
 
-1. **Context Understanding**: Sometimes Claude generated code that needed adjustment to fit the specific project requirements. I had to carefully review and modify suggestions.
+## 🙏 Acknowledgments
 
-2. **Over-reliance Risk**: I had to be mindful not to blindly accept AI suggestions and ensure I understood every piece of code being added to the project.
+- Built with modern web development best practices
+- Inspired by real-world e-commerce platforms
+- Development assisted by Claude Code
 
-3. **Integration Work**: While AI could generate individual components well, integrating them and ensuring they worked together required manual effort and debugging.
+---
 
-### Transparency Statement
-
-Throughout this project, I've been transparent about AI usage:
-- AI-generated code was always reviewed and understood before integration
-- I made architectural decisions and business logic implementations
-- All commits involving AI assistance include co-authorship attribution
-- This README clearly documents where and how AI was used
-
-The final application represents a collaboration between human decision-making and AI code generation, resulting in a well-tested, functional, and maintainable full-stack application.
-
-## License
-
-This project was created as a technical assessment and is available for educational purposes.
-
-## Author
-
-Developed with AI assistance from Claude Code by Anthropic.
+**Author**: Sarmanpreet Singh
+**Repository**: [github.com/sarman03/sweet_shop](https://github.com/sarman03/sweet_shop)
