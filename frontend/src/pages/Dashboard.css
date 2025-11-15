@@ -63,6 +63,22 @@
   box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
 }
 
+.btn-cart {
+  padding: 10px 20px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-cart:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+}
+
 .error-message {
   background: #fee;
   color: #c33;

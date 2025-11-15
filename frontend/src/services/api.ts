@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { LoginCredentials, RegisterData, AuthResponse, Sweet, SweetFormData } from '../types/index';
+import type { LoginCredentials, RegisterData, AuthResponse, Sweet, SweetFormData, Cart } from '../types/index';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
@@ -65,6 +65,39 @@ export const sweetsAPI = {
 
   restock: async (id: string, quantity: number): Promise<Sweet> => {
     const response = await api.post(`/sweets/${id}/restock`, { quantity });
+    return response.data;
+  },
+};
+
+// Cart API
+export const cartAPI = {
+  getCart: async (): Promise<Cart> => {
+    const response = await api.get('/cart');
+    return response.data;
+  },
+
+  addToCart: async (sweetId: string, quantity: number): Promise<Cart> => {
+    const response = await api.post('/cart/add', { sweetId, quantity });
+    return response.data;
+  },
+
+  updateQuantity: async (sweetId: string, quantity: number): Promise<Cart> => {
+    const response = await api.put(`/cart/update/${sweetId}`, { quantity });
+    return response.data;
+  },
+
+  removeFromCart: async (sweetId: string): Promise<Cart> => {
+    const response = await api.delete(`/cart/remove/${sweetId}`);
+    return response.data;
+  },
+
+  clearCart: async (): Promise<Cart> => {
+    const response = await api.delete('/cart/clear');
+    return response.data;
+  },
+
+  checkout: async (): Promise<{ message: string; cart: Cart }> => {
+    const response = await api.post('/cart/checkout');
     return response.data;
   },
 };

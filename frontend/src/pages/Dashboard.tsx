@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { useCart } from '../contexts/CartContext';
 import { sweetsAPI } from '../services/api';
 import type { Sweet } from '../types/index';
 import SweetCard from '../components/SweetCard';
@@ -16,6 +17,7 @@ const Dashboard: React.FC = () => {
   const [showAdminPanel, setShowAdminPanel] = useState(false);
 
   const { user, logout } = useAuth();
+  const { getTotalItems } = useCart();
   const navigate = useNavigate();
 
   const loadSweets = async () => {
@@ -56,14 +58,6 @@ const Dashboard: React.FC = () => {
     }
   };
 
-  const handlePurchase = async (id: string, quantity: number) => {
-    try {
-      await sweetsAPI.purchase(id, quantity);
-      await loadSweets();
-    } catch (err: any) {
-      alert(err.response?.data?.error || 'Purchase failed');
-    }
-  };
 
   const handleLogout = () => {
     logout();
@@ -78,6 +72,9 @@ const Dashboard: React.FC = () => {
           <span className="user-info">
             Welcome, {user?.name} {user?.role === 'admin' && '(Admin)'}
           </span>
+          <button className="btn-cart" onClick={() => navigate('/cart')}>
+            Cart ({getTotalItems()})
+          </button>
           {user?.role === 'admin' && (
             <button
               className="btn-admin"
@@ -110,7 +107,6 @@ const Dashboard: React.FC = () => {
                 <SweetCard
                   key={sweet._id}
                   sweet={sweet}
-                  onPurchase={handlePurchase}
                 />
               ))}
             </div>

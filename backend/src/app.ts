@@ -2,6 +2,7 @@ import express, { Application } from 'express';
 import cors from 'cors';
 import authRoutes from './routes/authRoutes';
 import sweetRoutes from './routes/sweetRoutes';
+import cartRoutes from './routes/cartRoutes';
 
 const app: Application = express();
 
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/sweets', sweetRoutes);
+app.use('/api/cart', cartRoutes);
 
 // Health check endpoint
 app.get('/health', (req, res) => {

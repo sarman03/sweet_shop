@@ -1,28 +1,32 @@
 import React, { useState } from 'react';
 import type { Sweet } from '../types/index';
+import { useCart } from '../contexts/CartContext';
 import './SweetCard.css';
 
 interface SweetCardProps {
   sweet: Sweet;
-  onPurchase: (id: string, quantity: number) => void;
 }
 
-const SweetCard: React.FC<SweetCardProps> = ({ sweet, onPurchase }) => {
+const SweetCard: React.FC<SweetCardProps> = ({ sweet }) => {
   const [quantity, setQuantity] = useState(1);
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
+  const { addToCart } = useCart();
 
-  const handlePurchase = async () => {
+  const handleAddToCart = async () => {
     if (quantity > sweet.quantity) {
       alert('Not enough quantity in stock');
       return;
     }
 
-    setIsProcessing(true);
     try {
-      await onPurchase(sweet._id, quantity);
+      setIsAdding(true);
+      await addToCart(sweet, quantity);
+      alert(`${quantity} ${sweet.name}(s) added to cart!`);
       setQuantity(1);
+    } catch (error: any) {
+      alert(error.response?.data?.error || 'Failed to add to cart');
     } finally {
-      setIsProcessing(false);
+      setIsAdding(false);
     }
   };
 
@@ -60,10 +64,10 @@ const SweetCard: React.FC<SweetCardProps> = ({ sweet, onPurchase }) => {
 
         <button
           className="btn-purchase"
-          onClick={handlePurchase}
-          disabled={sweet.quantity === 0 || isProcessing}
+          onClick={handleAddToCart}
+          disabled={sweet.quantity === 0 || isAdding}
         >
-          {isProcessing ? 'Processing...' : 'Purchase'}
+          {isAdding ? 'Adding...' : 'Add to Cart'}
         </button>
       </div>
     </div>

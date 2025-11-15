@@ -39,3 +39,16 @@ export interface SweetFormData {
   quantity: number;
   description?: string;
 }
+
+export interface CartItem {
+  sweet: Sweet;
+  quantity: number;
+}
+
+export interface Cart {
+  _id: string;
+  user: string;
+  items: CartItem[];
+  createdAt: string;
+  updatedAt: string;
+}
