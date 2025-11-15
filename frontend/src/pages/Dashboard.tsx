@@ -69,11 +69,12 @@ const Dashboard: React.FC = () => {
       <header className="dashboard-header">
         <h1>Sweet Shop</h1>
         <div className="header-actions">
-          <span className="user-info">
-            Welcome, {user?.name} {user?.role === 'admin' && '(Admin)'}
-          </span>
+          <div className="user-info">
+            <div className="user-avatar">{user?.name?.charAt(0).toUpperCase()}</div>
+            <span>Welcome, {user?.name} {user?.role === 'admin' && '(Admin)'}</span>
+          </div>
           <button className="btn-cart" onClick={() => navigate('/cart')}>
-            Cart ({getTotalItems()})
+            🛒 {getTotalItems()}
           </button>
           {user?.role === 'admin' && (
             <button

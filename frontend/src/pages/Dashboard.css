@@ -1,21 +1,23 @@
 .dashboard-container {
   min-height: 100vh;
-  background: #f5f7fa;
+  background: #F5E6D3;
 }
 
 .dashboard-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 20px 40px;
+  background: #F5E6D3;
+  color: #333;
+  padding: 15px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .dashboard-header h1 {
   margin: 0;
-  font-size: 2rem;
+  font-size: 1.8rem;
+  color: #8B4513;
+  font-weight: 600;
 }
 
 .header-actions {
@@ -25,42 +27,60 @@
 }
 
 .user-info {
-  font-weight: 500;
+  font-weight: 400;
   padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.2);
+  background: #E8D5BD;
   border-radius: 20px;
+  color: #666;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #8B4513;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1rem;
 }
 
 .btn-secondary {
   padding: 10px 20px;
   background: white;
-  color: #667eea;
-  border: none;
+  color: #666;
+  border: 1px solid #ddd;
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: all 0.2s;
 }
 
 .btn-secondary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  background: #f5f5f5;
+  transform: translateY(-1px);
 }
 
 .btn-admin {
   padding: 10px 20px;
-  background: #ffd700;
-  color: #333;
+  background: #FF8C42;
+  color: white;
   border: none;
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: all 0.2s;
 }
 
 .btn-admin:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+  background: #FF7A2E;
+  transform: translateY(-1px);
 }
 
 .btn-cart {
@@ -72,11 +92,14 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .btn-cart:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+  background: #45a049;
+  transform: translateY(-1px);
 }
 
 .error-message {
@@ -99,9 +122,9 @@
 
 .sweets-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 24px;
-  padding: 40px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+  padding: 30px 40px 40px 40px;
 }
 
 @media (max-width: 768px) {

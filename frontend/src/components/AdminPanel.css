@@ -15,11 +15,60 @@
   font-size: 2rem;
 }
 
+.btn-primary,
+.btn-secondary {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #8B4513 0%, #6d3410 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(139, 69, 19, 0.4);
+}
+
+.btn-secondary {
+  background: white;
+  color: #666;
+  border: 1px solid #ddd;
+}
+
+.btn-secondary:hover {
+  background: #f5f5f5;
+  transform: translateY(-1px);
+}
+
+.error-message {
+  background: #fee;
+  color: #c33;
+  padding: 12px;
+  margin: 20px 0;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  font-size: 1.2rem;
+  color: #666;
+}
+
 .sweet-form {
   background: white;
   padding: 30px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   margin: 30px 0;
 }
 
@@ -27,6 +76,52 @@
   margin: 0 0 24px 0;
   color: #333;
   font-size: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  color: #666;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.3s;
+  background: #fafafa;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #8B4513;
+  background: white;
+}
+
+.form-group textarea {
+  resize: vertical;
+  font-family: inherit;
+}
+
+.form-group input[type="file"] {
+  padding: 8px;
+  background: white;
+  border: 2px dashed #ddd;
+  cursor: pointer;
+}
+
+.form-group input[type="file"]:hover {
+  border-color: #8B4513;
 }
 
 .form-actions {
@@ -58,7 +153,7 @@
 .admin-sweets-table {
   background: white;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   overflow: hidden;
   margin-top: 30px;
 }
@@ -69,7 +164,7 @@
 }
 
 .admin-sweets-table thead {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #8B4513 0%, #6d3410 100%);
   color: white;
 }
 
@@ -105,22 +200,22 @@
 }
 
 .btn-edit {
-  background: #2196f3;
+  background: #D2691E;
   color: white;
 }
 
 .btn-edit:hover {
-  background: #1976d2;
+  background: #B8571B;
   transform: translateY(-2px);
 }
 
 .btn-restock {
-  background: #4caf50;
+  background: #8B4513;
   color: white;
 }
 
 .btn-restock:hover {
-  background: #388e3c;
+  background: #6d3410;
   transform: translateY(-2px);
 }
 
