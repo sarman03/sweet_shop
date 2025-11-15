@@ -37,26 +37,33 @@ const Register: React.FC = () => {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h1>Sweet Shop</h1>
-        <h2>Register</h2>
+        <div className="auth-logo">
+          <div className="logo-icon">🍫</div>
+          <h1>
+            SWEET <span className="logo-sweet">Delights</span>
+          </h1>
+        </div>
+
+        <h2>Sign Up</h2>
 
         {error && <div className="error-message">{error}</div>}
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="name">Name</label>
+            <label htmlFor="name">Full Name</label>
             <input
               id="name"
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              placeholder="Enter your name"
+              placeholder="Enter your full name"
             />
+            <span className="input-icon">👤</span>
           </div>
 
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">Email Address</label>
             <input
               id="email"
               type="email"
@@ -65,6 +72,7 @@ const Register: React.FC = () => {
               required
               placeholder="Enter your email"
             />
+            <span className="input-icon">✉️</span>
           </div>
 
           <div className="form-group">
@@ -75,17 +83,35 @@ const Register: React.FC = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              placeholder="Enter your password (min 6 characters)"
+              placeholder="Minimum 6 characters"
             />
+            <span className="input-icon">🔒</span>
           </div>
 
           <button type="submit" className="btn-primary" disabled={isLoading}>
-            {isLoading ? 'Registering...' : 'Register'}
+            {isLoading ? 'Creating Account...' : 'Sign Up'}
           </button>
         </form>
 
+        <div className="auth-divider">
+          <span>Or connect with</span>
+        </div>
+
+        <div className="social-login">
+          <button className="social-btn" type="button" title="Google">
+            G
+          </button>
+          <button className="social-btn" type="button" title="Facebook">
+            f
+          </button>
+          <button className="social-btn" type="button" title="Apple">
+
+          </button>
+        </div>
+
         <p className="auth-link">
-          Already have an account? <Link to="/login">Login here</Link>
+          Already have an account?
+          <Link to="/login">Login</Link>
         </p>
       </div>
     </div>
