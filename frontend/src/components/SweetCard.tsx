@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sweet } from '../types';
+import type { Sweet } from '../types/index';
 import './SweetCard.css';
 
 interface SweetCardProps {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { sweetsAPI } from '../services/api';
-import { Sweet } from '../types';
+import type { Sweet } from '../types/index';
 import SweetCard from '../components/SweetCard';
 import SearchBar from '../components/SearchBar';
 import AdminPanel from '../components/AdminPanel';

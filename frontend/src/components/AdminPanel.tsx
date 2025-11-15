@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { sweetsAPI } from '../services/api';
-import { Sweet, SweetFormData } from '../types';
+import type { Sweet, SweetFormData } from '../types/index';
 import './AdminPanel.css';
 
 interface AdminPanelProps {
