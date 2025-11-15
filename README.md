@@ -77,17 +77,21 @@ cd backend
 npm install
 ```
 
-Create `.env` file in the `backend` directory:
+Create `.env` file in the `backend` directory with the following content:
 
 ```env
 PORT=5000
-MONGODB_URI=mongodb://localhost:27017/sweet-shop
-JWT_SECRET=your_super_secret_jwt_key_here
+MONGODB_URI=mongodb+srv://sarman:sarman@cluster0.zcxujkp.mongodb.net/
+JWT_SECRET=sweet_shop_jwt_secret_key_2024
 NODE_ENV=development
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
+
+# Cloudinary Configuration
+CLOUDINARY_CLOUD_NAME=pfi
+CLOUDINARY_API_KEY=426396619318821
+CLOUDINARY_API_SECRET=SJbP1tMxT5s2pq6DsU-i02F4rwM
 ```
+
+**Note**: The MongoDB database and Cloudinary account are already configured and ready to use!
 
 ### 3. Frontend Setup
 
@@ -101,23 +105,6 @@ Create `.env` file in the `frontend` directory:
 ```env
 VITE_API_URL=http://localhost:5000/api
 ```
-
-### 4. Database Setup
-
-Make sure MongoDB is running locally:
-
-```bash
-# For local MongoDB
-mongod
-```
-
-Or update `MONGODB_URI` in backend `.env` with your MongoDB Atlas connection string.
-
-### 5. Cloudinary Setup
-
-1. Create a free account at [Cloudinary](https://cloudinary.com/)
-2. Get your credentials from the dashboard
-3. Add them to your backend `.env` file
 
 ## 🚀 Running the Application
 
@@ -209,6 +196,34 @@ npm test
 | DELETE | `/api/cart/remove/:sweetId` | Remove from cart | Yes |
 | DELETE | `/api/cart/clear` | Clear entire cart | Yes |
 | POST | `/api/cart/checkout` | Complete purchase | Yes |
+
+## 📸 Screenshots
+
+### Authentication
+![Login Page](screenshots/login.png)
+*Modern login interface with brown chocolate theme and tab-based navigation*
+
+### Dashboard & Browse
+![Main Dashboard](screenshots/main-dashboard.png)
+*Product catalog with beautiful card layout, search bar, and category filtering*
+
+### Search & Filter
+![Search Interface](screenshots/search-filter.png)
+*Smart search bar with name, category, and price range filters*
+
+![Filter Working](screenshots/filter-working.png)
+*Real-time filtering in action with debounced search*
+
+### Shopping Cart
+![Shopping Cart](screenshots/cart.png)
+*Cart page with item management, quantity controls, and checkout*
+
+### Admin Panel
+![Admin Sweet List](screenshots/admin-sweetList.png)
+*Admin dashboard showing inventory management with edit, delete, and restock options*
+
+![Add New Sweet](screenshots/admin-addNewSweet.png)
+*Admin form for adding new products with image upload via Cloudinary*
 
 ## 🎨 UI Features
 
